@@ -49,13 +49,10 @@ jobs:
             --no-daemon \
             --stacktrace
 
-      - name: Package XCFramework
+      - name: Package framework
         run: |
           mkdir -p iosApp/build
-          xcodebuild -create-xcframework \
-            -framework shared/build/bin/iosArm64/debugFramework/shared.framework \
-            -framework shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework \
-            -output iosApp/build/Shared.xcframework
+          cp -R shared/build/bin/iosArm64/debugFramework/shared.framework iosApp/build/Shared.framework
 
       - name: Install XcodeGen
         run: brew install xcodegen
