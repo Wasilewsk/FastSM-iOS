@@ -71,9 +71,9 @@ struct StatusItemView: View {
             }
             
             HStack(spacing: 20) {
-                actionButton(icon: "bubble.right", count: displayStatus.repliesCount) {}
-                actionButton(icon: "arrow.2.squarepath", count: displayStatus.boostsCount) {}
-                actionButton(icon: "heart", count: displayStatus.favouritesCount,
+                actionButton(icon: "bubble.right", count: Int(displayStatus.repliesCount)) {}
+                actionButton(icon: "arrow.2.squarepath", count: Int(displayStatus.boostsCount)) {}
+                actionButton(icon: "heart", count: Int(displayStatus.favouritesCount),
                              isHighlighted: displayStatus.favourited) {}
                 Button(action: {}) {
                     Image(systemName: "bookmark")

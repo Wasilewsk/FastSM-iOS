@@ -16,25 +16,21 @@ class SpeechService: NSObject, SpeechEngine, ObservableObject {
         guard feedbackPrefs.speechEnabled else { return }
         
         let text: String? = {
-            switch event {
-            case is PostSent:
+            switch event.key {
+            case "send_post":
                 return feedbackPrefs.speakPostSent ? "Post sent" : nil
-            case is ReplySent:
+            case "send_reply":
                 return feedbackPrefs.speakPostSent ? "Reply sent" : nil
-            case is BoostSent:
+            case "send_repost":
                 return feedbackPrefs.speakPostSent ? "Boost sent" : nil
-            case is PostFailed:
+            case "error":
                 return feedbackPrefs.speakError ? "Error" : nil
-            case is TabLoaded:
+            case "ready":
                 return feedbackPrefs.speakTabLoaded ? "Posts loaded" : nil
-            case is NotificationReceived:
+            case "notification":
                 return feedbackPrefs.speakNotification ? "New notification" : nil
-            case is Favourited, is Unfavourited, is Bookmarked, is Followed, is Unfollowed, is Deleted:
+            case "like", "unlike", "follow", "unfollow", "delete":
                 return feedbackPrefs.speakPostSent ? "\(event.key)" : nil
-            case is Error:
-                return feedbackPrefs.speakError ? "Error occurred" : nil
-            case is NewPostReceived:
-                return nil
             default:
                 return nil
             }
