@@ -67,6 +67,7 @@ jobs:
       - name: Build unsigned IPA
         working-directory: iosApp
         run: |
+          set -o pipefail
           xcodebuild \
             -project FastSM.xcodeproj \
             -scheme FastSM \
