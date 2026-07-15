@@ -49,10 +49,11 @@ jobs:
             --no-daemon \
             --stacktrace
 
-      - name: Package framework
+      - name: Inspect framework module
         run: |
-          mkdir -p iosApp/build
-          cp -R shared/build/bin/iosArm64/debugFramework/shared.framework iosApp/build/Shared.framework
+          ls -la shared/build/bin/iosArm64/debugFramework/shared.framework/
+          cat shared/build/bin/iosArm64/debugFramework/shared.framework/Modules/module.modulemap 2>/dev/null || echo "No module.modulemap found"
+          file shared/build/bin/iosArm64/debugFramework/shared.framework/shared
 
       - name: Install XcodeGen
         run: brew install xcodegen
@@ -71,6 +72,8 @@ jobs:
             -sdk iphoneos \
             -configuration Release \
             -derivedDataPath build/DerivedData \
+            FRAMEWORK_SEARCH_PATHS='$(inherited) $(SRCROOT)/../shared/build/bin/iosArm64/debugFramework' \
+            OTHER_LDFLAGS='$(inherited) -framework shared' \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGN_ENTITLEMENTS="" \
