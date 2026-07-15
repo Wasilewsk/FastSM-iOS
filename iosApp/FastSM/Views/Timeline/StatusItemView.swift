@@ -22,7 +22,7 @@ struct StatusItemView: View {
             }
             
             HStack(alignment: .top, spacing: 10) {
-                AsyncImage(url: URL(string: displayStatus.account.avatar_ ?? "")) { image in
+                AsyncImage(url: URL(string: displayStatus.account.avatar ?? "")) { image in
                     image.resizable().clipShape(Circle())
                 } placeholder: {
                     Circle().fill(.secondary.opacity(0.3))
@@ -39,7 +39,7 @@ struct StatusItemView: View {
                 
                 Spacer()
                 
-                Text(displayStatus.created_at.formatted(.relative(presentation: .named)))
+                Text("\(displayStatus.createdAt)")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
@@ -57,7 +57,7 @@ struct StatusItemView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
                         ForEach(displayStatus.mediaAttachments, id: \.id) { media in
-                            AsyncImage(url: URL(string: media.previewUrl_ ?? media.url)) { image in
+                            AsyncImage(url: URL(string: media.previewUrl ?? media.url)) { image in
                                 image.resizable().aspectRatio(contentMode: .fill)
                             } placeholder: {
                                 Rectangle().fill(.secondary.opacity(0.2))

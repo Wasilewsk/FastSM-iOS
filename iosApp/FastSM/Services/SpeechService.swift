@@ -17,23 +17,23 @@ class SpeechService: NSObject, SpeechEngine, ObservableObject {
         
         let text: String? = {
             switch event {
-            case is AppEvent.PostSent:
+            case is PostSent:
                 return feedbackPrefs.speakPostSent ? "Post sent" : nil
-            case is AppEvent.ReplySent:
+            case is ReplySent:
                 return feedbackPrefs.speakPostSent ? "Reply sent" : nil
-            case is AppEvent.BoostSent:
+            case is BoostSent:
                 return feedbackPrefs.speakPostSent ? "Boost sent" : nil
-            case is AppEvent.PostFailed:
+            case is PostFailed:
                 return feedbackPrefs.speakError ? "Error" : nil
-            case is AppEvent.TabLoaded:
+            case is TabLoaded:
                 return feedbackPrefs.speakTabLoaded ? "Posts loaded" : nil
-            case is AppEvent.NotificationReceived:
+            case is NotificationReceived:
                 return feedbackPrefs.speakNotification ? "New notification" : nil
-            case is AppEvent.Favourited, is AppEvent.Unfavourited, is AppEvent.Bookmarked, is AppEvent.Followed, is AppEvent.Unfollowed, is AppEvent.Deleted:
+            case is Favourited, is Unfavourited, is Bookmarked, is Followed, is Unfollowed, is Deleted:
                 return feedbackPrefs.speakPostSent ? "\(event.key)" : nil
-            case is AppEvent.Error:
+            case is Error:
                 return feedbackPrefs.speakError ? "Error occurred" : nil
-            case is AppEvent.NewPostReceived:
+            case is NewPostReceived:
                 return nil
             default:
                 return nil

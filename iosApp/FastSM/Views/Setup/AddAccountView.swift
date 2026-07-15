@@ -155,7 +155,7 @@ class OAuthHelper {
                     instance: instance,
                     userId: me.id,
                     acct: me.acct,
-                    displayName: me.displayName,
+                    displayName: me.display_name,
                     avatar: me.avatar,
                     accessToken: token.access_token,
                     clientId: clientId,

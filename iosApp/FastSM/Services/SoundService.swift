@@ -25,7 +25,7 @@ class SoundService: SoundEngine, ObservableObject {
         }
     }
     
-    func availablePacks(): [String] {
+    func availablePacks() -> [String] {
         return ["default"]
     }
 }
