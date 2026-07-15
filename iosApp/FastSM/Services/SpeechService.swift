@@ -1,5 +1,5 @@
 import Foundation
-import AVSpeechSynthesizer
+import AVFoundation
 import shared
 
 class SpeechService: NSObject, SpeechEngine, ObservableObject {
