@@ -82,7 +82,17 @@ jobs:
       - name: Package IPA
         working-directory: iosApp
         run: |
-          APP_PATH=$(find build/DerivedData -name "FastSM.app" -type d | head -1)
+          APP_PATH=$(find build/DerivedData -name "FastSM.app" -type d 2>/dev/null | head -1)
+          if [ -z "$APP_PATH" ]; then
+            echo "FastSM.app not found in build/DerivedData, searching entire iosApp..."
+            APP_PATH=$(find . -name "FastSM.app" -type d 2>/dev/null | head -1)
+          fi
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: FastSM.app not found anywhere"
+            find build/DerivedData -maxdepth 5 -type d 2>/dev/null || true
+            exit 1
+          fi
+          echo "Found app at: $APP_PATH"
           mkdir -p Payload
           cp -r "$APP_PATH" Payload/
           zip -r FastSM.ipa Payload
