@@ -35,7 +35,7 @@ class AppState: ObservableObject {
         self.soundService = SoundService(feedbackPrefs: feedbackPrefs)
         
         self.container = AppContainer(
-            httpClient: createDefaultHttpClient(),
+            httpClient: IosModule.shared.createDefaultHttpClient(),
             tokenStore: tokenStore,
             appPrefs: appPrefs,
             feedbackPrefs: feedbackPrefs,
@@ -56,7 +56,7 @@ class AppState: ObservableObject {
     }
     
     func handleOAuthCallback(url: URL) {
-        guard let code = MastodonOAuth.extractCode(url: url.absoluteString) else { return }
+        guard let code = MastodonOAuth.shared.extractCode(url: url.absoluteString) else { return }
         NotificationCenter.default.post(
             name: .oauthCallback,
             object: nil,

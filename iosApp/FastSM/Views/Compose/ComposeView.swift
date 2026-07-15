@@ -22,10 +22,10 @@ struct ComposeView: View {
                 }
                 
                 Picker("Visibility", selection: $visibility) {
-                    Text("Public").tag(Visibility.public_)
-                    Text("Unlisted").tag(Visibility.unlisted)
-                    Text("Followers").tag(Visibility.private_)
-                    Text("Direct").tag(Visibility.direct)
+                    Text("Public").tag(Visibility.public_ as Visibility)
+                    Text("Unlisted").tag(Visibility.unlisted as Visibility)
+                    Text("Followers").tag(Visibility.private_ as Visibility)
+                    Text("Direct").tag(Visibility.direct as Visibility)
                 }
                 .pickerStyle(.menu)
             }
@@ -94,8 +94,4 @@ struct ComposeView: View {
             }
         }
     }
-}
-
-enum Visibility: Hashable {
-    case public_, unlisted, private_, direct
 }

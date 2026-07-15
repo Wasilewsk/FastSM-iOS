@@ -29,24 +29,26 @@ import me.masonasons.fastsm.data.repo.TimelineRepository
 import me.masonasons.fastsm.data.repo.TimelineStorage
 import me.masonasons.fastsm.util.AppInfo
 
-fun createDefaultHttpClient(): HttpClient = HttpClient(platformHttpClientEngine()) {
-    expectSuccess = true
-    install(ContentNegotiation) {
-        json(Json {
-            ignoreUnknownKeys = true
-            explicitNulls = false
-        })
-    }
-    install(HttpTimeout) {
-        requestTimeoutMillis = 30_000
-        connectTimeoutMillis = 15_000
-        socketTimeoutMillis = 30_000
-    }
-    install(Logging) { level = LogLevel.INFO }
-    install(WebSockets)
-    install(DefaultRequest) {
-        header(HttpHeaders.Accept, "application/json")
-        header(HttpHeaders.UserAgent, AppInfo.USER_AGENT)
+object IosModule {
+    fun createDefaultHttpClient(): HttpClient = HttpClient(platformHttpClientEngine()) {
+        expectSuccess = true
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+                explicitNulls = false
+            })
+        }
+        install(HttpTimeout) {
+            requestTimeoutMillis = 30_000
+            connectTimeoutMillis = 15_000
+            socketTimeoutMillis = 30_000
+        }
+        install(Logging) { level = LogLevel.INFO }
+        install(WebSockets)
+        install(DefaultRequest) {
+            header(HttpHeaders.Accept, "application/json")
+            header(HttpHeaders.UserAgent, AppInfo.USER_AGENT)
+        }
     }
 }
 

@@ -11,7 +11,7 @@ class ComposeViewModel: ObservableObject {
         do {
             let platform = container.forAccount(account: account)
             let max = try await platform.getMaxPostChars()
-            await MainActor.run { maxChars = max }
+            await MainActor.run { maxChars = Int(max) }
         } catch {
             print("Failed to load max chars: \(error)")
         }

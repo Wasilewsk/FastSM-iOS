@@ -2,7 +2,7 @@ import Foundation
 import shared
 
 enum SharedHelpers {
-    static func formatRelative(instant: Shared.Instant) -> String {
+    static func formatRelative(instant: Instant) -> String {
         let now = Clock.System.now()
         let seconds = (now - instant).inWholeSeconds
         switch seconds {

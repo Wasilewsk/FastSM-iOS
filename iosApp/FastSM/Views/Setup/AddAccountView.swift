@@ -54,7 +54,7 @@ struct AddAccountView: View {
     }
     
     private func connect() {
-        let normalized = MastodonOAuth.normalizeInstance(raw: instance)
+        let normalized = MastodonOAuth.shared.normalizeInstance(raw: instance)
         guard !normalized.isEmpty else { return }
         
         isLoading = true
@@ -68,12 +68,12 @@ struct AddAccountView: View {
                     tokenProvider: { nil }
                 )
                 let app = try await api.registerApp(
-                    clientName: MastodonOAuth.CLIENT_NAME,
-                    redirectUri: MastodonOAuth.REDIRECT_URI,
-                    scopes: MastodonOAuth.SCOPES,
-                    website: MastodonOAuth.WEBSITE
+                    clientName: MastodonOAuth.shared.CLIENT_NAME,
+                    redirectUri: MastodonOAuth.shared.REDIRECT_URI,
+                    scopes: MastodonOAuth.shared.SCOPES,
+                    website: MastodonOAuth.shared.WEBSITE
                 )
-                let authUrl = MastodonOAuth.buildAuthorizeUrl(
+                let authUrl = MastodonOAuth.shared.buildAuthorizeUrl(
                     instanceBase: normalized,
                     clientId: app.client_id
                 )
@@ -140,8 +140,8 @@ class OAuthHelper {
                     clientId: clientId,
                     clientSecret: clientSecret,
                     code: code,
-                    redirectUri: MastodonOAuth.REDIRECT_URI,
-                    scopes: MastodonOAuth.SCOPES
+                    redirectUri: MastodonOAuth.shared.REDIRECT_URI,
+                    scopes: MastodonOAuth.shared.SCOPES
                 )
                 
                 let authedApi = MastodonApi(
