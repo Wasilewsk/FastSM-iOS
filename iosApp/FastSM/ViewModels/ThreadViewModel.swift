@@ -1,5 +1,5 @@
 import Foundation
-import Shared
+import shared
 
 @MainActor
 class ThreadViewModel: ObservableObject {

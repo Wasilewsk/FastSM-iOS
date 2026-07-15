@@ -1,5 +1,5 @@
 import AVFoundation
-import Shared
+import shared
 
 class SoundService: SoundEngine, ObservableObject {
     private let feedbackPrefs: FeedbackPrefsStore

@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState

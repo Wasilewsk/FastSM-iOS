@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct ComposeView: View {
     @EnvironmentObject var appState: AppState

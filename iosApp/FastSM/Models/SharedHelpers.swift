@@ -1,5 +1,5 @@
 import Foundation
-import Shared
+import shared
 
 enum SharedHelpers {
     static func formatRelative(instant: Shared.Instant) -> String {

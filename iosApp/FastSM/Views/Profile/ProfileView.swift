@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct ProfileView: View {
     let userId: String

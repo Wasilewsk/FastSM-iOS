@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct SearchView: View {
     @EnvironmentObject var appState: AppState

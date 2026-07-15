@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct MainTabView: View {
     @EnvironmentObject var appState: AppState

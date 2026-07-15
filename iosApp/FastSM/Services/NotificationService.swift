@@ -1,5 +1,5 @@
 import UserNotifications
-import Shared
+import shared
 
 class NotificationService: ObservableObject {
     static let shared = NotificationService()

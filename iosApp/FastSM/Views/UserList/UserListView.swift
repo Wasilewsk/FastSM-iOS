@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct UserListView: View {
     let userId: String

@@ -1,5 +1,5 @@
 import UIKit
-import Shared
+import shared
 
 class HapticsService: HapticsEngine, ObservableObject {
     private let feedbackPrefs: FeedbackPrefsStore

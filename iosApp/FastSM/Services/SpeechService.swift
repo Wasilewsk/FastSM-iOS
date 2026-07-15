@@ -1,6 +1,6 @@
 import Foundation
 import AVSpeechSynthesizer
-import Shared
+import shared
 
 class SpeechService: NSObject, SpeechEngine, ObservableObject {
     private let synthesizer = AVSpeechSynthesizer()

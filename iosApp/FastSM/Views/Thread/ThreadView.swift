@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import shared
 
 struct ThreadView: View {
     let statusId: String
