@@ -1,0 +1,38 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# Android
+app/build/
+*.apk
+*.aab
+
+# KMP shared
+shared/build/
+shared/bin/
+
+# iOS
+iosApp/build/
+iosApp/Pods/
+iosApp/FastSM.xcodeproj/
+iosApp/FastSM.xcworkspace/
+iosApp/Payload/
+iosApp/FastSM.ipa
+iosApp/DerivedData/
+DerivedData/
+
+# Xcode
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM

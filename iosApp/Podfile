@@ -1,0 +1,8 @@
+platform :ios, '17.0'
+
+target 'FastSM' do
+  use_frameworks! :linkage => :static
+
+  # KMP Shared Framework
+  pod 'shared', :path => '../shared'
+end
