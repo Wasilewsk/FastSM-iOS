@@ -67,4 +67,5 @@ class AppState: ObservableObject {
 
 extension Notification.Name {
     static let oauthCallback = Notification.Name("oauthCallback")
+    static let oauthFailed = Notification.Name("oauthFailed")
 }

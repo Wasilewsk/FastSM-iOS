@@ -51,6 +51,13 @@ struct AddAccountView: View {
         }
         .navigationTitle("")
         .navigationBarHidden(true)
+        .onReceive(NotificationCenter.default.publisher(for: .oauthFailed)) { note in
+            if let msg = note.userInfo?["error"] as? String {
+                errorMessage = "Login failed: \(msg)"
+            } else {
+                errorMessage = "Login failed"
+            }
+        }
     }
     
     private func connect() {
@@ -85,7 +92,7 @@ struct AddAccountView: View {
                     }
                     
                     let helper = OAuthHelper(
-                        container: appState.container,
+                        appState: appState,
                         instance: normalized,
                         clientId: app.client_id,
                         clientSecret: app.client_secret
@@ -108,18 +115,20 @@ class OAuthHelperStore {
 }
 
 class OAuthHelper {
-    let container: AppContainer
+    let appState: AppState
     let instance: String
     let clientId: String
     let clientSecret: String
     
-    init(container: AppContainer, instance: String, clientId: String, clientSecret: String) {
-        self.container = container
+    private var observer: NSObjectProtocol?
+    
+    init(appState: AppState, instance: String, clientId: String, clientSecret: String) {
+        self.appState = appState
         self.instance = instance
         self.clientId = clientId
         self.clientSecret = clientSecret
         
-        NotificationCenter.default.addObserver(
+        observer = NotificationCenter.default.addObserver(
             forName: .oauthCallback, object: nil, queue: .main
         ) { [weak self] notification in
             guard let self = self,
@@ -128,11 +137,17 @@ class OAuthHelper {
         }
     }
     
-    private func exchangeToken(code: String) {
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    func exchangeToken(code: String) {
         Task {
             do {
                 let api = MastodonApi(
-                    httpClient: container.httpClient,
+                    httpClient: appState.container.httpClient,
                     instanceBase: instance,
                     tokenProvider: { nil }
                 )
@@ -145,13 +160,13 @@ class OAuthHelper {
                 )
                 
                 let authedApi = MastodonApi(
-                    httpClient: container.httpClient,
+                    httpClient: appState.container.httpClient,
                     instanceBase: instance,
                     tokenProvider: { token.access_token }
                 )
                 let me = try await authedApi.verifyCredentials()
                 
-                let id = try await container.accountRepository.saveMastodonAccount(
+                let id = try await appState.container.accountRepository.saveMastodonAccount(
                     instance: instance,
                     userId: me.id,
                     acct: me.acct,
@@ -162,16 +177,22 @@ class OAuthHelper {
                     clientSecret: clientSecret
                 )
                 
+                let savedAccount = try await appState.container.accountRepository.getById(id)
+                
                 await MainActor.run {
-                    if let appDelegate = UIApplication.shared.connectedScenes
-                        .compactMap({ $0 as? UIWindowScene })
-                        .first?.windows.first?.rootViewController
-                        .flatMap({ $0 as? UIHostingController<AddAccountView> }) {
-                        // handled via appState
-                    }
+                    OAuthHelperStore.shared.current = nil
+                    appState.currentAccount = savedAccount
+                    appState.isLoggedIn = true
                 }
             } catch {
                 print("OAuth exchange failed: \(error)")
+                await MainActor.run {
+                    NotificationCenter.default.post(
+                        name: .oauthFailed, object: nil,
+                        userInfo: ["error": error.localizedDescription]
+                    )
+                    OAuthHelperStore.shared.current = nil
+                }
             }
         }
     }
