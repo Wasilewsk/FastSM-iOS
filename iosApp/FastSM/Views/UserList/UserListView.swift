@@ -20,7 +20,7 @@ struct UserListView: View {
                     .frame(width: 40, height: 40)
                     
                     VStack(alignment: .leading) {
-                        Text(user.display_name).font(.subheadline.bold())
+                        Text(user.displayName).font(.subheadline.bold())
                         Text("@\(user.acct)").font(.caption).foregroundStyle(.secondary)
                     }
                 }

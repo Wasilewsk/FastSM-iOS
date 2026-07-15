@@ -13,7 +13,7 @@ class HapticsService: HapticsEngine, ObservableObject {
         
         let shouldVibrate: Bool = {
             switch event {
-            case .PostSent, .ReplySent, .BoostSent:
+            case is AppEvent.PostSent, is AppEvent.ReplySent, is AppEvent.BoostSent:
                 return feedbackPrefs.hapticsPostSent
             case is AppEvent.NewPostReceived:
                 return feedbackPrefs.hapticsNewPost

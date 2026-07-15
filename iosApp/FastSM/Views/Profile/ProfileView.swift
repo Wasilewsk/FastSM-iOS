@@ -19,7 +19,7 @@ struct ProfileView: View {
                         .frame(width: 64, height: 64)
                         
                         VStack(alignment: .leading) {
-                            Text(user.display_name).font(.title3.bold())
+                            Text(user.displayName).font(.title3.bold())
                             Text("@\(user.acct)").font(.subheadline).foregroundStyle(.secondary)
                         }
                     }
@@ -45,7 +45,7 @@ struct ProfileView: View {
             }
         }
         .listStyle(.plain)
-        .navigationTitle(viewModel.user?.display_name ?? "Profile")
+        .navigationTitle(viewModel.user?.displayName ?? "Profile")
         .navigationBarTitleDisplayMode(.inline)
         .task {
             if let account = appState.currentAccount {

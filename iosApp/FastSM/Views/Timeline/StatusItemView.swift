@@ -15,7 +15,7 @@ struct StatusItemView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.2.squarepath")
                         .font(.caption)
-                    Text("\(status.account.display_name) boosted")
+                    Text("\(status.account.displayName) boosted")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -30,7 +30,7 @@ struct StatusItemView: View {
                 .frame(width: 40, height: 40)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(displayStatus.account.display_name)
+                    Text(displayStatus.account.displayName)
                         .font(.subheadline.bold())
                     Text("@\(displayStatus.account.acct)")
                         .font(.caption)

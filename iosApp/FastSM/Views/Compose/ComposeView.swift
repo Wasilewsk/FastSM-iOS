@@ -4,7 +4,7 @@ import shared
 struct ComposeView: View {
     @EnvironmentObject var appState: AppState
     @State private var text: String = ""
-    @State private var visibility: Visibility = .public_
+    @State private var visibility: shared.Visibility = .public_
     @State private var isLoading = false
     @State private var errorMessage: String?
     var inReplyToId: String? = nil
@@ -22,10 +22,10 @@ struct ComposeView: View {
                 }
                 
                 Picker("Visibility", selection: $visibility) {
-                    Text("Public").tag(Visibility.public_ as Visibility)
-                    Text("Unlisted").tag(Visibility.unlisted as Visibility)
-                    Text("Followers").tag(Visibility.private_ as Visibility)
-                    Text("Direct").tag(Visibility.direct as Visibility)
+                    Text("Public").tag(shared.Visibility.public_ as shared.Visibility)
+                    Text("Unlisted").tag(shared.Visibility.unlisted as shared.Visibility)
+                    Text("Followers").tag(shared.Visibility.private_ as shared.Visibility)
+                    Text("Direct").tag(shared.Visibility.direct as shared.Visibility)
                 }
                 .pickerStyle(.menu)
             }

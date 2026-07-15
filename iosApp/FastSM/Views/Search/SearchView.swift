@@ -30,7 +30,7 @@ struct SearchView: View {
                             .frame(width: 36, height: 36)
                             
                             VStack(alignment: .leading) {
-                                Text(user.display_name).font(.subheadline.bold())
+                                Text(user.displayName).font(.subheadline.bold())
                                 Text("@\(user.acct)").font(.caption).foregroundStyle(.secondary)
                             }
                         }

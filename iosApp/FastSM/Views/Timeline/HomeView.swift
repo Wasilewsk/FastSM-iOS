@@ -51,3 +51,5 @@ struct HomeView: View {
         }
     }
 }
+
+extension UniversalStatus: Identifiable {}
