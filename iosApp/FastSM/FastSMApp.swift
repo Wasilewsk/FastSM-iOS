@@ -48,7 +48,7 @@ class AppState: ObservableObject {
         )
         
         Task { @MainActor in
-            if let account = await container.accountRepository.getActiveAccount() {
+            if let account = try? await container.accountRepository.getActiveAccount() {
                 self.currentAccount = account
                 self.isLoggedIn = true
             }

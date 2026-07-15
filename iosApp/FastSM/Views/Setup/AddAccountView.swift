@@ -67,7 +67,7 @@ struct AddAccountView: View {
                     instanceBase: normalized,
                     tokenProvider: { nil }
                 )
-                let app = await api.registerApp(
+                let app = try await api.registerApp(
                     clientName: MastodonOAuth.CLIENT_NAME,
                     redirectUri: MastodonOAuth.REDIRECT_URI,
                     scopes: MastodonOAuth.SCOPES,
@@ -136,7 +136,7 @@ class OAuthHelper {
                     instanceBase: instance,
                     tokenProvider: { nil }
                 )
-                let token = await api.exchangeToken(
+                let token = try await api.exchangeToken(
                     clientId: clientId,
                     clientSecret: clientSecret,
                     code: code,
@@ -149,9 +149,9 @@ class OAuthHelper {
                     instanceBase: instance,
                     tokenProvider: { token.access_token }
                 )
-                let me = await authedApi.verifyCredentials()
+                let me = try await authedApi.verifyCredentials()
                 
-                let id = await container.accountRepository.saveMastodonAccount(
+                let id = try await container.accountRepository.saveMastodonAccount(
                     instance: instance,
                     userId: me.id,
                     acct: me.acct,

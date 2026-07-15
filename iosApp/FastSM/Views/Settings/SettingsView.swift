@@ -26,7 +26,7 @@ struct SettingsView: View {
                 Button("Sign Out", role: .destructive) {
                     Task {
                         if let account = appState.currentAccount {
-                            await appState.container.accountRepository.delete(id: account.id)
+                            try? await appState.container.accountRepository.delete(id: account.id)
                             await MainActor.run {
                                 appState.currentAccount = nil
                                 appState.isLoggedIn = false
