@@ -45,7 +45,7 @@ class MastodonPlatform(
     override val supportsContentWarning: Boolean = true
 
     private val maxCharsMutex = Mutex()
-    @Volatile private var cachedMaxChars: Int? = null
+    @kotlin.concurrent.Volatile private var cachedMaxChars: Int? = null
 
     override suspend fun getMaxPostChars(): Int {
         cachedMaxChars?.let { return it }

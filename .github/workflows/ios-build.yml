@@ -51,41 +51,11 @@ jobs:
 
       - name: Package XCFramework
         run: |
-          FRAMEWORK_DIR=shared/build/bin/iosArm64/debugFramework/shared.framework
-          SIM_FRAMEWORK_DIR=shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework
-          XCOUT=iosApp/build/Shared.xcframework
-          
-          mkdir -p "$XCOUT/ios-arm64/shared.framework"
-          mkdir -p "$XCOUT/ios-arm64_x86_64-simulator/shared.framework"
-          
-          cp -R "$FRAMEWORK_DIR" "$XCOUT/ios-arm64/shared.framework"
-          cp -R "$SIM_FRAMEWORK_DIR" "$XCOUT/ios-arm64_x86_64-simulator/shared.framework"
-          
-          cat > "$XCOUT/Info.plist" << 'PLIST'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-            <key>CFBundlePackageType</key><string>XFWK</string>
-            <key>XCFrameworkFormatVersion</key><string>1.0</string>
-            <key>AvailableLibraries</key>
-            <array>
-              <dict>
-                <key>LibraryIdentifier</key><string>ios-arm64</string>
-                <key>SupportedArchitectures</key><array><string>arm64</string></array>
-                <key>SupportedPlatform</key><string>ios</string>
-                <key>DebugSymbolsPath</key><string>dsym</string>
-              </dict>
-              <dict>
-                <key>LibraryIdentifier</key><string>ios-arm64_x86_64-simulator</string>
-                <key>SupportedArchitectures</key><array><string>arm64</string><string>x86_64</string></array>
-                <key>SupportedPlatform</key><string>iossimulator</string>
-                <key>DebugSymbolsPath</key><string>dsym</string>
-              </dict>
-            </array>
-          </dict>
-          </plist>
-          PLIST
+          mkdir -p iosApp/build
+          xcodebuild -create-xcframework \
+            -framework shared/build/bin/iosArm64/debugFramework/shared.framework \
+            -framework shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework \
+            -output iosApp/build/Shared.xcframework
 
       - name: Install XcodeGen
         run: brew install xcodegen

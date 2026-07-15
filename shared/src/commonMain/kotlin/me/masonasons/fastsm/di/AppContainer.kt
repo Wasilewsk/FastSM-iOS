@@ -47,13 +47,11 @@ class AppContainer(
     }
 
     private val platformCache = mutableMapOf<Long, PlatformAccount>()
-    private val lock = Any()
 
-    fun forAccount(account: Account): PlatformAccount = synchronized(lock) {
+    fun forAccount(account: Account): PlatformAccount =
         platformCache.getOrPut(account.id) {
             MastodonPlatform(account, httpClient) { accountRepository.tokenFor(account.id) }
         }
-    }
 
-    fun invalidatePlatform(accountId: Long) = synchronized(lock) { platformCache.remove(accountId) }
+    fun invalidatePlatform(accountId: Long) { platformCache.remove(accountId) }
 }

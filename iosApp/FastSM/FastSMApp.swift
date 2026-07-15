@@ -26,7 +26,7 @@ class AppState: ObservableObject {
     @Published var currentAccount: Account?
     
     init() {
-        let tokenStore = SecureTokenStore()
+        let tokenStore = IosSecureTokenStore()
         let appPrefs = InMemoryAppPrefs()
         let feedbackPrefs = InMemoryFeedbackPrefs()
         
