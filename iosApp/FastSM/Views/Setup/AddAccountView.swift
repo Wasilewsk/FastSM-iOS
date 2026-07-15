@@ -177,7 +177,7 @@ class OAuthHelper {
                     clientSecret: clientSecret
                 )
                 
-                let savedAccount = try await appState.container.accountRepository.getById(Int64(truncating: id))
+                let savedAccount = try await appState.container.accountRepository.getById(id: Int64(truncating: id))
                 
                 await MainActor.run {
                     OAuthHelperStore.shared.current = nil
